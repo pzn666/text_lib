@@ -1,2 +1,4 @@
 word2vec/word2vec_models/ 
 __pycache__/
+.DS_Store
+.idea/

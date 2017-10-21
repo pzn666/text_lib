@@ -66,6 +66,9 @@ class DataCleaner:
                 doc['custom_corpus']['keyword']['pos'] = clean_pos
                 yield doc
 
+    def __clean_by_freq(self):
+        raise NotImplementedError
+
     def __insert_mongo(self, docs_gen, bulk=False):
         """
         TODO: need speed up
