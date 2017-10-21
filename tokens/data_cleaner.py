@@ -21,7 +21,6 @@ class DataCleaner:
     def __init__(self, config):
         self.config = config
 
-    @timer.clocktimer
     def __extract_keywords(self):
         client = MongoClient(self.config['host'], self.config['port'])
         data_col = client[self.config['db']][self.config['data']]
@@ -47,7 +46,6 @@ class DataCleaner:
                         }
             yield doc
 
-    @timer.clocktimer
     def __filter_by_jieba(self, docs_gen):
         tokenizer = TokenBase()
         for doc in docs_gen:
@@ -57,8 +55,10 @@ class DataCleaner:
             if bool(terms_set.intersection(pos_set)):
                 yield doc
 
-    @timer.clocktimer
     def __insert_mongo(self, docs_gen, bulk=False):
+        """
+        TODO: speed up
+        """
         client = MongoClient(self.config['host'], self.config['port'])
         col = client[self.config['db']][self.config['train_data']]
         if bulk:
@@ -73,8 +73,7 @@ class DataCleaner:
     def gen_train_data(self):
         extracted_docs = self.__extract_keywords()
         jieba_docs = self.__filter_by_jieba(extracted_docs)
-        print(len(list(jieba_docs)))
-        # result = self.__insert_mongo(docs)
+        result = self.__insert_mongo(jieba_docs)
         print('Data cleanning done')
 
 
