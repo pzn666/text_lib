@@ -51,6 +51,12 @@ class WordEmbedder:
             if word in self.model.wv.vocab:
                 yield(self.model[word])
 
+    def check_in_vocab(self, word):
+        if word in self.model.wv.vocab:
+            return True
+        else:
+            return False
+
     def get_vocab_size(self):
         return len(self.model.wv.vocab)
 
