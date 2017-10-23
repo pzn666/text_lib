@@ -71,7 +71,7 @@ class WordEmbedder:
                 datas += file.read_file(path)
         return datas
 
-# check_words = ['蔡依林', 'LV']
+# check_words = ['蔡依林']
 # model_path = os.path.dirname(os.path.realpath(__file__)) + '/word2vec_models/vec_model.bin'
 # embedder = WordEmbedder(model_path)
 # pprint(embedder.get_similarities(check_words, threshold=0.4).items())
